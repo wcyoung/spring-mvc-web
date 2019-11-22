@@ -7,6 +7,52 @@
   <display-name>spring-mvc-web</display-name>
   <description>spring-mvc-web</description>
 
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+      classpath:/spring/context-application.xml
+    </param-value>
+  </context-param>
+
+  <filter>
+      <filter-name>characterEncodingFilter</filter-name>
+      <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+      <init-param>
+          <param-name>encoding</param-name>
+          <param-value>UTF-8</param-value>
+      </init-param>
+      <init-param>
+          <param-name>forceEncoding</param-name>
+          <param-value>true</param-value>
+      </init-param>
+  </filter>
+  <filter-mapping>
+      <filter-name>characterEncodingFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:/spring/context-servlet.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
