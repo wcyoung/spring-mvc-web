@@ -31,6 +31,7 @@ def version = [
     logback: '1.2.3',
     spring: '4.3.15.RELEASE',
     aspectj: '1.8.13',
+    jacksonDatabind: '2.9.5',
     commonsLang: '3.7',
     commonsCollections: '3.2.2',
     junit: '4.12'
@@ -49,6 +50,8 @@ dependencies {
     compile "org.springframework:spring-webmvc:${version.spring}"
 
     compile "org.aspectj:aspectjweaver:${version.aspectj}"
+    compile "com.fasterxml.jackson.core:jackson-core:${version.jacksonDatabind}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${version.jacksonDatabind}"
 
     compile "org.apache.commons:commons-lang3:${version.commonsLang}"
     compile "commons-collections:commons-collections:${version.commonsCollections}"
