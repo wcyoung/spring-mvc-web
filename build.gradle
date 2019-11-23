@@ -26,47 +26,31 @@ repositories {
 }
 
 def version = [
-    servletAPI: '3.1.0',
-    slf4j: '1.7.25',
+    servletApi: '3.1.0',
+    slf4j: '1.7.29',
     logback: '1.2.3',
-    spring: '4.3.15.RELEASE',
-    aspectj: '1.8.13',
-    jacksonDatabind: '2.9.5',
-    commonsLang: '3.7',
-    commonsCollections: '3.2.2',
-    junit: '4.12'
+    taglibs: '1.2.5',
+    jstl: '1.2',
+    spring: '4.3.25.RELEASE',
+    aspectj: '1.9.4',
+    jacksonDatabind: '2.10.1',
+    junit: '5.5.2'
 ]
 
-// TODO dependencies update
 dependencies {
-    providedCompile "javax.servlet:javax.servlet-api:${version.servletAPI}"
+    providedCompile group: "javax.servlet", name: "javax.servlet-api", version: "${version.servletApi}"
 
-    compile "org.slf4j:slf4j-api:${version.slf4j}"
-    compile "ch.qos.logback:logback-classic:${version.logback}"
+    implementation group: "org.slf4j", name:"slf4j-api", version:"${version.slf4j}"
+    implementation group: "ch.qos.logback", name:"logback-classic", version:"${version.logback}"
 
-    compile group: 'org.apache.taglibs', name: 'taglibs-standard-impl', version: '1.2.5'
-    compile group: 'javax.servlet.jsp.jstl', name: 'jstl', version: '1.2'
+    implementation group: "org.apache.taglibs", name: "taglibs-standard-impl", version: "${version.taglibs}"
+    implementation group: "javax.servlet.jsp.jstl", name: "jstl", version: "${version.jstl}"
 
-    compile "org.springframework:spring-webmvc:${version.spring}"
+    implementation group: "org.springframework", name: "spring-webmvc", version: "${version.spring}"
 
-    compile "org.aspectj:aspectjweaver:${version.aspectj}"
-    compile "com.fasterxml.jackson.core:jackson-core:${version.jacksonDatabind}"
-    compile "com.fasterxml.jackson.core:jackson-databind:${version.jacksonDatabind}"
+    implementation group: "org.aspectj", name: "aspectjweaver", version: "${version.aspectj}"
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: "${version.jacksonDatabind}"
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${version.jacksonDatabind}"
 
-    compile "org.apache.commons:commons-lang3:${version.commonsLang}"
-    compile "commons-collections:commons-collections:${version.commonsCollections}"
-
-    testCompile "junit:junit:${version.junit}"
-}
-
-test {
-    systemProperties 'property': 'value'
-}
-
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
-    }
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${version.junit}"
 }
