@@ -19,6 +19,8 @@
     <mvc:path-matching suffix-pattern="false"/>
   </mvc:annotation-driven>
 
+  <mvc:default-servlet-handler/>
+
   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="prefix" value="/WEB-INF/jsp/" />
     <property name="suffix" value=".jsp" />
