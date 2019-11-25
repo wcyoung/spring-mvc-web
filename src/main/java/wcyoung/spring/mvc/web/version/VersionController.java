@@ -23,17 +23,15 @@ public class VersionController {
     @GetMapping
     public ResponseEntity<Map<String, Object>> getVersionInfo() {
         Map<String, Object> body = new HashMap<>();
-        String version = "";
 
         try {
             Properties properties = new Properties();
             properties.load(resourceLoader.getResource("/META-INF/MANIFEST.MF").getInputStream());
-            version = properties.getProperty("Implementation-Version");
+            body.put("version", properties.getProperty("Implementation-Version"));
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity<Map<String,Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        body.put("version", version);
 
         return new ResponseEntity<Map<String,Object>>(body, HttpStatus.OK);
     }
