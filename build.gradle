@@ -34,6 +34,7 @@ def version = [
     spring: '4.3.25.RELEASE',
     aspectj: '1.9.4',
     jacksonDatabind: '2.10.1',
+    commonsLang: '3.9',
     junit: '5.5.2'
 ]
 
@@ -51,6 +52,8 @@ dependencies {
     implementation group: "org.aspectj", name: "aspectjweaver", version: "${version.aspectj}"
     implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: "${version.jacksonDatabind}"
     implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${version.jacksonDatabind}"
+
+    implementation group: "org.apache.commons", name: "commons-lang3", version: "${version.commonsLang}"
 
     testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${version.junit}"
 }
