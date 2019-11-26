@@ -32,7 +32,6 @@ def version = [
     taglibs: '1.2.5',
     jstl: '1.2',
     spring: '4.3.25.RELEASE',
-    aspectj: '1.9.4',
     jacksonDatabind: '2.10.1',
     commonsLang: '3.9',
     junit: '5.5.2'
@@ -49,7 +48,6 @@ dependencies {
 
     implementation group: "org.springframework", name: "spring-webmvc", version: "${version.spring}"
 
-    implementation group: "org.aspectj", name: "aspectjweaver", version: "${version.aspectj}"
     implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: "${version.jacksonDatabind}"
     implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${version.jacksonDatabind}"
 
