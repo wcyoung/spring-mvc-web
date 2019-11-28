@@ -1,22 +1,15 @@
-apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'war'
+
+plugins {
+    id 'java'
+    id 'eclipse-wtp'
+    id 'war'
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
-
-eclipse {
-    project.natures 'org.springsource.ide.eclipse.gradle.core.nature'
-    wtp {
-        facet {
-            facet name: 'jst.web', version: '3.1'
-            facet name: 'jst.java', version: '1.8'
-        }
-    }
-}
 
 group = 'wcyoung'
 version = '0.0.1.SNAPSHOT'
@@ -25,33 +18,30 @@ repositories {
     jcenter()
 }
 
-def version = [
+def libVer = [
     servletApi: '3.1.0',
-    slf4j: '1.7.29',
-    logback: '1.2.3',
-    taglibs: '1.2.5',
-    jstl: '1.2',
-    spring: '4.3.25.RELEASE',
     jacksonDatabind: '2.10.1',
+    jstl: '1.2',
+    taglibs: '1.2.5',
+    spring: '4.3.25.RELEASE',
+    logback: '1.2.3',
     commonsLang: '3.9',
+    slf4j: '1.7.29',
     junit: '5.5.2'
 ]
 
 dependencies {
-    providedCompile group: "javax.servlet", name: "javax.servlet-api", version: "${version.servletApi}"
+    providedCompile group: "javax.servlet", name: "javax.servlet-api", version: "${libVer.servletApi}"
 
-    implementation group: "org.slf4j", name:"slf4j-api", version:"${version.slf4j}"
-    implementation group: "ch.qos.logback", name:"logback-classic", version:"${version.logback}"
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: "${libVer.jacksonDatabind}"
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${libVer.jacksonDatabind}"
+    implementation group: "javax.servlet.jsp.jstl", name: "jstl", version: "${libVer.jstl}"
+    implementation group: "org.apache.taglibs", name: "taglibs-standard-impl", version: "${libVer.taglibs}"
+    implementation group: "org.springframework", name: "spring-webmvc", version: "${libVer.spring}"
 
-    implementation group: "org.apache.taglibs", name: "taglibs-standard-impl", version: "${version.taglibs}"
-    implementation group: "javax.servlet.jsp.jstl", name: "jstl", version: "${version.jstl}"
+    implementation group: "ch.qos.logback", name:"logback-classic", version:"${libVer.logback}"
+    implementation group: "org.apache.commons", name: "commons-lang3", version: "${libVer.commonsLang}"
+    implementation group: "org.slf4j", name:"slf4j-api", version:"${libVer.slf4j}"
 
-    implementation group: "org.springframework", name: "spring-webmvc", version: "${version.spring}"
-
-    implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: "${version.jacksonDatabind}"
-    implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${version.jacksonDatabind}"
-
-    implementation group: "org.apache.commons", name: "commons-lang3", version: "${version.commonsLang}"
-
-    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${version.junit}"
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${libVer.junit}"
 }
