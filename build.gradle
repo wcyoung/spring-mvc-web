@@ -43,5 +43,7 @@ dependencies {
     implementation group: "org.apache.commons", name: "commons-lang3", version: "${libVer.commonsLang}"
     implementation group: "org.slf4j", name:"slf4j-api", version:"${libVer.slf4j}"
 
+    implementation files('lib/spring-mvc-common-0.0.1.SNAPSHOT.jar')
+
     testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${libVer.junit}"
 }
