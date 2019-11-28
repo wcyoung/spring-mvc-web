@@ -9,12 +9,12 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import wcyoung.spring.mvc.bind.annotation.JsonRequestMapping;
 import wcyoung.spring.mvc.common.BaseController;
 
-@RequestMapping(value = "/version")
+@JsonRequestMapping(value = "/version")
 @RestController
 public class VersionController extends BaseController {
 
