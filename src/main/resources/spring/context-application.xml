@@ -12,4 +12,6 @@
     <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
   </context:component-scan>
 
+  <bean class="wcyoung.spring.mvc.bean.ApplicationInitializer" lazy-init="false"/>
+
 </beans>
