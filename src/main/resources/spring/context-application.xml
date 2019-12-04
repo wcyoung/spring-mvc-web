@@ -18,5 +18,6 @@
   <bean class="wcyoung.spring.mvc.bean.ApplicationInitializer" lazy-init="false"/>
 
   <aop:aspectj-autoproxy/>
+  <bean id="loggingAspect" class="wcyoung.spring.mvc.common.aop.LoggingAspect"/>
 
 </beans>
