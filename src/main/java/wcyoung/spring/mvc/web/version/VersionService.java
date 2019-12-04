@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import wcyoung.spring.mvc.common.BaseService;
+import wcyoung.spring.mvc.common.aop.BaseService;
 
 @Service
 public class VersionService extends BaseService {
