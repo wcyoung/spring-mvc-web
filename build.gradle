@@ -41,9 +41,12 @@ dependencies {
     implementation group: "org.aspectj", name: "aspectjweaver", version: "${libVer.aspectj}"
     implementation group: "org.springframework", name: "spring-webmvc", version: "${libVer.spring}"
 
-    implementation group: "ch.qos.logback", name:"logback-classic", version:"${libVer.logback}"
+    implementation group: "ch.qos.logback", name: "logback-classic", version: "${libVer.logback}"
     implementation group: "org.apache.commons", name: "commons-lang3", version: "${libVer.commonsLang}"
-    implementation group: "org.slf4j", name:"slf4j-api", version:"${libVer.slf4j}"
+    implementation group: "org.slf4j", name: "jcl-over-slf4j", version: "${libVer.slf4j}"
+    implementation group: "org.slf4j", name: "jul-to-slf4j", version: "${libVer.slf4j}"
+    implementation group: "org.slf4j", name: "log4j-over-slf4j", version: "${libVer.slf4j}"
+    implementation group: "org.slf4j", name: "slf4j-api", version: "${libVer.slf4j}"
 
     implementation files('lib/spring-mvc-common-0.0.1.SNAPSHOT.jar')
 
