@@ -28,9 +28,11 @@
   <property name="ROOT_LOG_LEVEL" value="DEBUG"/>
 
   <appender name="CONSOLE_LOG" class="ch.qos.logback.core.ConsoleAppender">
-    <layout class="ch.qos.logback.classic.PatternLayout">
-      <Pattern>[%d{HH:mm:ss.SSS}] %-5level %logger{40} - %msg%n</Pattern>
-    </layout>
+    <!-- encoders are  by default assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+    <encoder>
+      <pattern>[%d{HH:mm:ss.SSS}] %-5level %logger{40} - %msg%n</pattern>
+    </encoder>
   </appender>
 
   <root level="${ROOT_LOG_LEVEL}">
