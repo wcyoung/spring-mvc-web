@@ -3,12 +3,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:jee="http://www.springframework.org/schema/jee"
     xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/jee
       http://www.springframework.org/schema/jee/spring-jee.xsd
       http://www.springframework.org/schema/tx
-      http://www.springframework.org/schema/tx/spring-tx.xsd"
+      http://www.springframework.org/schema/tx/spring-tx.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd"
       default-autowire="byName">
 
   <jee:jndi-lookup id="springMvcDataSource" jndi-name="jdbc/SpringMvc" expected-type="javax.sql.DataSource"/>
@@ -33,5 +36,19 @@
   </bean>
 
   <tx:annotation-driven transaction-manager="springMvcTransactionManager"/>
+
+  <tx:advice id="springMvcTxAdvice" transaction-manager="springMvcTransactionManager">
+    <tx:attributes>
+      <tx:method name="get*" read-only="true" propagation="NOT_SUPPORTED"/>
+      <tx:method name="select*" read-only="true" propagation="NOT_SUPPORTED"/>
+      <tx:method name="tx*" propagation="REQUIRES_NEW" rollback-for="Exception"/>
+      <tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
+    </tx:attributes>
+  </tx:advice>
+
+  <aop:config>
+    <aop:pointcut id="springMvcTxPointcut" expression="execution(public * wcyoung.spring.mvc.web..*Service.*(..))"/>
+    <aop:advisor advice-ref="springMvcTxAdvice" pointcut-ref="springMvcTxPointcut"/>
+  </aop:config>
 
 </beans>
