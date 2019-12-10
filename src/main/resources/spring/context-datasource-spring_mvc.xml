@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/jee
+      http://www.springframework.org/schema/jee/spring-jee.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd"
+      default-autowire="byName">
+
+  <jee:jndi-lookup id="springMvcDataSource" jndi-name="jdbc/SpringMvc" expected-type="javax.sql.DataSource"/>
+
+  <bean id="springMvcSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="springMvcDataSource"/>
+    <property name="configLocation" value="classpath:/config/mybatis-config.xml"/>
+    <property name="mapperLocations" value="classpath:/mapper/springmvc/*.xml"/>
+  </bean>
+
+  <bean id="springMvcSqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg index="0" ref="springMvcSqlSessionFactory"/>
+  </bean>
+
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="wcyoung.spring.mvc.mapper.springmvc"/>
+    <property name="sqlSessionFactoryBeanName" value="springMvcSqlSessionFactory"/>
+  </bean>
+
+  <bean id="springMvcTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <constructor-arg ref="springMvcDataSource"/>
+  </bean>
+
+</beans>
