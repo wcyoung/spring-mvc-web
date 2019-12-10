@@ -24,6 +24,8 @@ def libVer = [
     jstl: '1.2',
     taglibs: '1.2.5',
     aspectj: '1.9.5',
+    mybatis:'3.5.3',
+    mybatisSpring: '2.0.3',
     spring: '4.3.25.RELEASE',
     logback: '1.2.3',
     commonsLang: '3.9',
@@ -39,6 +41,9 @@ dependencies {
     implementation group: "javax.servlet.jsp.jstl", name: "jstl", version: "${libVer.jstl}"
     implementation group: "org.apache.taglibs", name: "taglibs-standard-impl", version: "${libVer.taglibs}"
     implementation group: "org.aspectj", name: "aspectjweaver", version: "${libVer.aspectj}"
+    implementation group: "org.mybatis", name: "mybatis", version: "${libVer.mybatis}"
+    implementation group: "org.mybatis", name: "mybatis-spring", version: "${libVer.mybatisSpring}"
+    implementation group: "org.springframework", name: "spring-jdbc", version: "${libVer.spring}"
     implementation group: "org.springframework", name: "spring-webmvc", version: "${libVer.spring}"
 
     implementation group: "ch.qos.logback", name: "logback-classic", version: "${libVer.logback}"
