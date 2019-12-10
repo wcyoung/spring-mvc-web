@@ -32,4 +32,6 @@
     <constructor-arg ref="springMvcDataSource"/>
   </bean>
 
+  <tx:annotation-driven transaction-manager="springMvcTransactionManager"/>
+
 </beans>
