@@ -20,7 +20,7 @@ repositories {
 
 def libVer = [
     servletApi: '3.1.0',
-    jacksonDatabind: '2.10.1',
+    jackson: '2.10.1',
     jstl: '1.2',
     taglibs: '1.2.5',
     aspectj: '1.9.5',
@@ -36,16 +36,25 @@ def libVer = [
 dependencies {
     providedCompile group: "javax.servlet", name: "javax.servlet-api", version: "${libVer.servletApi}"
 
-    implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: "${libVer.jacksonDatabind}"
-    implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${libVer.jacksonDatabind}"
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: "${libVer.jackson}"
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-core", version: "${libVer.jackson}"
+    implementation group: "com.fasterxml.jackson.core", name: "jackson-databind", version: "${libVer.jackson}"
     implementation group: "javax.servlet.jsp.jstl", name: "jstl", version: "${libVer.jstl}"
     implementation group: "org.apache.taglibs", name: "taglibs-standard-impl", version: "${libVer.taglibs}"
     implementation group: "org.aspectj", name: "aspectjweaver", version: "${libVer.aspectj}"
     implementation group: "org.mybatis", name: "mybatis", version: "${libVer.mybatis}"
     implementation group: "org.mybatis", name: "mybatis-spring", version: "${libVer.mybatisSpring}"
+    implementation group: "org.springframework", name: "spring-aop", version: "${libVer.spring}"
+    implementation group: "org.springframework", name: "spring-beans", version: "${libVer.spring}"
+    implementation group: "org.springframework", name: "spring-context", version: "${libVer.spring}"
+    implementation group: "org.springframework", name: "spring-core", version: "${libVer.spring}"
+    implementation group: "org.springframework", name: "spring-expression", version: "${libVer.spring}"
     implementation group: "org.springframework", name: "spring-jdbc", version: "${libVer.spring}"
+    implementation group: "org.springframework", name: "spring-tx", version: "${libVer.spring}"
+    implementation group: "org.springframework", name: "spring-web", version: "${libVer.spring}"
     implementation group: "org.springframework", name: "spring-webmvc", version: "${libVer.spring}"
 
+    implementation group: "ch.qos.logback", name: "logback-core", version: "${libVer.logback}"
     implementation group: "ch.qos.logback", name: "logback-classic", version: "${libVer.logback}"
     implementation group: "org.apache.commons", name: "commons-lang3", version: "${libVer.commonsLang}"
     implementation group: "org.slf4j", name: "jcl-over-slf4j", version: "${libVer.slf4j}"
