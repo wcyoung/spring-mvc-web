@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import wcyoung.spring.mvc.bind.annotation.JsonRequestMapping;
-import wcyoung.spring.mvc.common.aop.BaseController;
+import wcyoung.spring.mvc.common.base.BaseController;
 
 @JsonRequestMapping(value = "/version")
 @RestController
