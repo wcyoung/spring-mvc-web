@@ -35,6 +35,8 @@
     </encoder>
   </appender>
 
+  <logger name="wcyoung.spring.mvc.mapper.springmvc" level="TRACE"/>
+
   <root level="${ROOT_LOG_LEVEL}">
     <appender-ref ref="CONSOLE_LOG"/>
   </root>
