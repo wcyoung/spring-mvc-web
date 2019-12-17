@@ -28,7 +28,7 @@ public class VersionController extends BaseController {
         try {
             body.put("version", versionService.getVersionInfo());
         } catch (Exception e) {
-            log.error("Exception : {}", ExceptionUtils.getStackTrace(e));
+            log.error("Exception: {}", ExceptionUtils.getStackTrace(e));
             return new ResponseEntity<Map<String,Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

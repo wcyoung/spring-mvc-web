@@ -40,7 +40,7 @@ public class ApplicationInitializer implements InitializingBean, DisposableBean 
         try {
             manifestInfo.load(resourceLoader.getResource("/META-INF/MANIFEST.MF").getInputStream());
         } catch (IOException e) {
-            log.error("Exception : {}", ExceptionUtils.getStackTrace(e));
+            log.error("Exception: {}", ExceptionUtils.getStackTrace(e));
             return false;
         }
         return true;
