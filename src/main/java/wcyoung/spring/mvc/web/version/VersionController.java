@@ -21,18 +21,26 @@ public class VersionController extends BaseController {
     @Resource
     private VersionService versionService;
 
-    @GetMapping
-    public ResponseEntity<Map<String, Object>> getVersionInfo() {
+    @GetMapping(value = "/app")
+    public ResponseEntity<Map<String, Object>> getAppVersion() {
         Map<String, Object> body = new HashMap<>();
 
         try {
-            body.put("version", versionService.getVersionInfo());
+            body.put("version", versionService.getManifestVersion());
         } catch (Exception e) {
             log.error("Exception: {}", ExceptionUtils.getStackTrace(e));
-            return new ResponseEntity<Map<String,Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return new ResponseEntity<Map<String,Object>>(body, HttpStatus.OK);
+        return new ResponseEntity<Map<String, Object>>(body, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/db")
+    public ResponseEntity<Map<String, Object>> selectDbVersion() {
+        Map<String, Object> body = new HashMap<>();
+        body.put("version", versionService.selectDbVersion());
+
+        return new ResponseEntity<Map<String, Object>>(body, HttpStatus.OK);
     }
 
 }

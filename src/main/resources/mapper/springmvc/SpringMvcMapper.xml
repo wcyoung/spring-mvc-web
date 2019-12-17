@@ -3,8 +3,8 @@
 
 <mapper namespace="wcyoung.spring.mvc.mapper.springmvc.SpringMvcMapper">
 
-    <select id="selectNow" resultType="String">
-        SELECT NOW() FROM DUAL
+    <select id="selectDbVersion" resultType="String">
+        SELECT VERSION() FROM DUAL
     </select>
 
 </mapper>
