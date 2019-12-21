@@ -25,10 +25,10 @@
   <Resource name="jdbc/${DatabaseName}"
       auth="Container"
       type="javax.sql.DataSource"
-      factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+      factory="wcyoung.encrypt.dbcp.tomcat.EncryptedBasicDataSourceFactory"
       driverClassName="org.mariadb.jdbc.Driver"
       url="jdbc:mariadb://${domain}:${port}/${database_name}"
       username="${username}"
-      password="${password}"/>
+      password="ENC(${password})"/>
 
 </Context>
