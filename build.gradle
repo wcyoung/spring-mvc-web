@@ -62,6 +62,7 @@ dependencies {
     implementation group: "org.slf4j", name: "log4j-over-slf4j", version: "${libVer.slf4j}"
     implementation group: "org.slf4j", name: "slf4j-api", version: "${libVer.slf4j}"
 
+    implementation files('lib/wcyoung-encrypt-dbcp-0.0.9.SNAPSHOT.jar')
     implementation files('lib/spring-mvc-common-0.0.1.SNAPSHOT.jar')
 
     testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${libVer.junit}"
