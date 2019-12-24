@@ -1,35 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<!-- 
-================================================================================
-/**
- * logback config apply order
- * 1. logback-test.xml
- * 2. logback.groovy
- * 3. logback.xml
- */
-================================================================================
-/**
- * log level
- * - TRACE : TRACE + DEBUG + INFO + WARN + ERROR
- * - DEBUG : DEBUG + INFO + WARN + ERROR
- * - INFO  : INFO + WARN + ERROR
- * - WARN  : WARN + ERROR
- * - ERROR : ERROR
- * - OFF   : 
- */
-================================================================================
- * configuration menual : [https://logback.qos.ch/manual/configuration.html]
-================================================================================
- -->
 <configuration debug="true" scan="true" scanPeriod="1 minutes">
 
-  <!-- ROOT log level -->
   <property name="ROOT_LOG_LEVEL" value="DEBUG"/>
 
-  <appender name="CONSOLE_LOG" class="ch.qos.logback.core.ConsoleAppender">
-    <!-- encoders are  by default assigned the type
-         ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
     <encoder>
       <pattern>[%d{HH:mm:ss.SSS}] %-5level %logger{40} - %msg%n</pattern>
     </encoder>
@@ -38,7 +15,7 @@
   <logger name="wcyoung.spring.mvc.mapper.springmvc" level="TRACE"/>
 
   <root level="${ROOT_LOG_LEVEL}">
-    <appender-ref ref="CONSOLE_LOG"/>
+    <appender-ref ref="STDOUT"/>
   </root>
 
 </configuration>
