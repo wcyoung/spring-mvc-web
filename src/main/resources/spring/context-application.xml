@@ -15,6 +15,10 @@
     <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
   </context:component-scan>
 
+  <bean class="wcyoung.spring.mvc.common.property.ApplicationProperties">
+    <constructor-arg value="properties/config.properties"/>
+  </bean>
+
   <bean class="wcyoung.spring.mvc.bean.ApplicationInitializer" lazy-init="false"/>
 
   <aop:aspectj-autoproxy/>
