@@ -15,7 +15,7 @@
     <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
   </context:component-scan>
 
-  <bean class="wcyoung.spring.mvc.common.property.ApplicationProperties">
+  <bean class="wcyoung.spring.mvc.common.config.ConfigurationProperties">
     <constructor-arg value="properties/config.properties"/>
   </bean>
 
