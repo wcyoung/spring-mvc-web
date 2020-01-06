@@ -16,7 +16,7 @@
   </context:component-scan>
 
   <bean class="wcyoung.spring.mvc.common.config.ConfigurationProperties">
-    <constructor-arg value="properties/config.properties"/>
+    <constructor-arg value="/properties/config.properties"/>
   </bean>
 
   <bean class="wcyoung.spring.mvc.bean.ApplicationInitializer" lazy-init="false"/>
