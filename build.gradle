@@ -67,3 +67,11 @@ dependencies {
 
     testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "${libVer.junit}"
 }
+
+war {
+    manifest {
+        attributes "Implementation-Title": "${rootProject.name}",
+                "Implementation-Version": "${rootProject.version}",
+                "Implementation-Vendor": "${rootProject.group}"
+    }
+}
