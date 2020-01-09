@@ -3,6 +3,10 @@
 
 <configuration>
 
+  <typeAliases>
+    <package name="wcyoung.spring.mvc.web"/>
+  </typeAliases>
+
   <plugins>
     <plugin interceptor="wcyoung.spring.mvc.mybatis.plugin.MybatisSqlLogInterceptor"/>
   </plugins>

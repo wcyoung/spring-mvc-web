@@ -18,7 +18,6 @@
 
   <bean id="springMvcSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="springMvcDataSource"/>
-    <property name="typeAliasesPackage" value="wcyoung.spring.mvc.web"/>
     <property name="configLocation" value="classpath:/config/mybatis-config.xml"/>
     <property name="mapperLocations" value="classpath:/mapper/springmvc/*.xml"/>
   </bean>
