@@ -27,7 +27,7 @@
       type="javax.sql.DataSource"
       factory="wcyoung.encrypt.dbcp.tomcat.EncryptedBasicDataSourceFactory"
       driverClassName="org.mariadb.jdbc.Driver"
-      url="jdbc:mariadb://${domain}:${port}/${database_name}"
+      url="jdbc:mariadb://${domain}:${port}/${database_name}?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true"
       username="${username}"
       password="ENC(${password})"
       initialSize="2" minIdle="2" maxTotal="8" maxIdle="8" maxWaitMillis="30000"
