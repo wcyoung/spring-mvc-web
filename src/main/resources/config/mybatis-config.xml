@@ -3,6 +3,13 @@
 
 <configuration>
 
+  <settings>
+    <setting name="cacheEnabled" value="false"/>
+    <setting name="useGeneratedKeys" value="true"/>
+    <setting name="defaultExecutorType" value="REUSE"/>
+    <setting name="jdbcTypeForNull" value="NULL"/>
+  </settings>
+
   <typeAliases>
     <package name="wcyoung.spring.mvc.web"/>
   </typeAliases>
