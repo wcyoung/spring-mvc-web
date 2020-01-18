@@ -27,11 +27,12 @@
       type="javax.sql.DataSource"
       factory="wcyoung.encrypt.dbcp.tomcat.EncryptedBasicDataSourceFactory"
       driverClassName="org.mariadb.jdbc.Driver"
-      url="jdbc:mariadb://${domain}:${port}/${database_name}?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true"
+      url="jdbc:mariadb://${domain}:${port}/${database_name}?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;zeroDateTimeBehavior=convertToNull"
       username="${username}"
       password="ENC(${password})"
       initialSize="2" minIdle="2" maxTotal="8" maxIdle="8" maxWaitMillis="30000"
       validationQuery="SELECT 1 FROM dual" testOnBorrow="true"
+      testWhileIdle="true" timeBetweenEvictionRunsMillis="600000"
       defaultAutoCommit="true"/>
 
 </Context>
