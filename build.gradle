@@ -74,4 +74,12 @@ war {
                 "Implementation-Version": "${rootProject.version}",
                 "Implementation-Vendor": "${rootProject.group}"
     }
+
+    doFirst {
+        def manifestFile = new File(projectDir, 'src/main/webapp/META-INF/MANIFEST.MF')
+        manifestFile.text = "Manifest-Version: 1.0\n"
+        manifestFile.text += "Implementation-Title: ${war.manifest.attributes['Implementation-Title']}\n"
+        manifestFile.text += "Implementation-Version: ${war.manifest.attributes['Implementation-Version']}\n"
+        manifestFile.text += "Implementation-Vendor: ${war.manifest.attributes['Implementation-Vendor']}\n"
+    }
 }
