@@ -2,8 +2,6 @@
 <!DOCTYPE xml>
 <configuration debug="true" scan="true" scanPeriod="1 minutes">
 
-  <property name="LOG_FILE_NAME" value="${catalina.home}/logs/spring-mvc-web"/>
-
   <property name="ROOT_LOG_LEVEL" value="DEBUG"/>
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
