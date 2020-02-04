@@ -29,10 +29,10 @@ public class VersionController extends BaseController {
             body.put("version", versionService.getManifestVersion());
         } catch (Exception e) {
             log.error("Exception: {}", ExceptionUtils.getStackTrace(e));
-            return new ResponseEntity<Map<String, Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return new ResponseEntity<Map<String, Object>>(body, HttpStatus.OK);
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
     @GetMapping(value = "/db")
@@ -40,7 +40,7 @@ public class VersionController extends BaseController {
         Map<String, Object> body = new HashMap<>();
         body.put("version", versionService.selectDbVersion());
 
-        return new ResponseEntity<Map<String, Object>>(body, HttpStatus.OK);
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
 }
