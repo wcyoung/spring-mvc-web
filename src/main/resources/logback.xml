@@ -19,9 +19,14 @@
     </encoder>
   </appender>
 
-  <logger name="wcyoung.spring.mvc.mybatis.plugin.MybatisSqlLogInterceptor" level="DEBUG"/>
+  <logger name="wcyoung.spring.mvc.bean.ApplicationInitializer" level="INFO"/>
+  <logger name="wcyoung.spring.mvc.common.aop.LoggingAspect" level="DEBUG"/>
 
+  <logger name="wcyoung.spring.mvc.mapper" level="TRACE"/>
   <logger name="wcyoung.spring.mvc.mapper.springmvc" level="TRACE"/>
+
+  <logger name="wcyoung.spring.mvc.common.config.ConfigurationProperties" level="INFO"/>
+  <logger name="wcyoung.spring.mvc.mybatis.plugin.MybatisSqlLogInterceptor" level="DEBUG"/>
 
   <root level="${ROOT_LOG_LEVEL}">
     <appender-ref ref="FILE"/>
