@@ -38,7 +38,13 @@ public class VersionController extends BaseController {
     @GetMapping(value = "/db")
     public ResponseEntity<Map<String, Object>> selectDbVersion() {
         Map<String, Object> body = new HashMap<>();
-        body.put("version", versionService.selectDbVersion());
+
+        try {
+            body.put("version", versionService.selectDbVersion());
+        } catch (Exception e) {
+            log.error("Exception: {}", ExceptionUtils.getStackTrace(e));
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
