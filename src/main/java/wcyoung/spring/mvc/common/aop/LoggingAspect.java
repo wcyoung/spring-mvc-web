@@ -12,7 +12,8 @@ public class LoggingAspect {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Around(value = "execution(* wcyoung.spring.mvc.web..*Service.*(..))")
+    @Around(value = "execution(* wcyoung.spring.mvc.web..*Service.*(..))"
+            + " or execution(* wcyoung.spring.mvc.mapper..*Mapper.*(..))")
     public Object logMethodRunningTime(ProceedingJoinPoint pjp) throws Throwable {
         String className = pjp.getSignature().getDeclaringTypeName();
         String methodName = pjp.getSignature().getName();
