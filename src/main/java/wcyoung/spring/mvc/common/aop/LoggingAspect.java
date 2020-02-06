@@ -14,7 +14,7 @@ public class LoggingAspect {
 
     @Around(value = "execution(* wcyoung.spring.mvc.web..*Service.*(..))"
             + " or execution(* wcyoung.spring.mvc.mapper..*Mapper.*(..))")
-    public Object logMethodRunningTime(ProceedingJoinPoint pjp) throws Throwable {
+    public Object logMethodExecutionTime(ProceedingJoinPoint pjp) throws Throwable {
         String className = pjp.getSignature().getDeclaringTypeName();
         String methodName = pjp.getSignature().getName();
 
@@ -24,8 +24,8 @@ public class LoggingAspect {
         Object returnValue = pjp.proceed();
         stopWatch.stop();
 
-        long runningTime = stopWatch.getTime();
-        log.debug("{}.{}() running time=({} ms)", className, methodName, String.format("%,d", runningTime));
+        long executionTime = stopWatch.getTime();
+        log.debug("{}.{}() execution time=({} ms)", className, methodName, String.format("%,d", executionTime));
 
         return returnValue;
     }
