@@ -27,12 +27,12 @@ public class ApplicationInitializer implements InitializingBean, DisposableBean 
     public void afterPropertiesSet() throws Exception {
         loadManifestInfo();
 
-        loggingStartup();
+        logStartup();
     }
 
     @Override
     public void destroy() throws Exception {
-        loggingShutdown();
+        logShutdown();
     }
 
     private boolean loadManifestInfo() {
@@ -46,7 +46,7 @@ public class ApplicationInitializer implements InitializingBean, DisposableBean 
         return true;
     }
 
-    private void loggingStartup() {
+    private void logStartup() {
         String unknown = "Unknown";
         String title = manifestInfo.getProperty("Implementation-Title", unknown);
         String vendor = manifestInfo.getProperty("Implementation-Vendor", unknown);
@@ -66,7 +66,7 @@ public class ApplicationInitializer implements InitializingBean, DisposableBean 
         System.out.println("=============================================");
     }
 
-    private void loggingShutdown() {
+    private void logShutdown() {
         String unknown = "Unknown";
         String title = manifestInfo.getProperty("Implementation-Title", unknown);
         String vendor = manifestInfo.getProperty("Implementation-Vendor", unknown);
