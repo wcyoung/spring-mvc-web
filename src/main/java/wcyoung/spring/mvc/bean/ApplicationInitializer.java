@@ -83,4 +83,8 @@ public class ApplicationInitializer implements InitializingBean, DisposableBean 
         System.out.println("=============================================");
     }
 
+    public String getManifestInfo(String key) {
+        return manifestInfo.getProperty(key);
+    }
+
 }
