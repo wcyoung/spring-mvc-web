@@ -1,7 +1,5 @@
 package wcyoung.spring.mvc.security;
 
-import java.util.Map;
-
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -14,7 +12,7 @@ import wcyoung.spring.mvc.security.annotation.ApplyXssFilter;
 import wcyoung.spring.mvc.security.annotation.IgnoreXssFilter;
 
 @ControllerAdvice
-public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Map<String, Object>> {
+public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public
@@ -32,12 +30,9 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Map<String, O
     }
 
     @Override
-    public Map<String, Object> beforeBodyWrite(Map<String, Object> body, MethodParameter returnType,
+    public Object beforeBodyWrite(Object body, MethodParameter returnType,
             MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
             ServerHttpRequest request, ServerHttpResponse response) {
-        if (!selectedContentType.equals(MediaType.APPLICATION_JSON)) {
-            return body;
-        }
 
         // TODO value filter
 
