@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -43,12 +44,15 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
             return filter((String) body);
         }
 
+        ApplyXssFilter applyXssFilter = returnType.getMethodAnnotation(ApplyXssFilter.class);
+        String[] ignoreKeys = applyXssFilter.ignoreKeys();
+
         if (body instanceof Map) {
-            return filter((Map<String, Object>) body);
+            return filter((Map<String, Object>) body, ignoreKeys);
         }
 
         if (body instanceof List) {
-            return filter((List<Object>) body);
+            return filter((List<Object>) body, ignoreKeys);
         }
 
         return body;
@@ -59,17 +63,21 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
     }
 
     @SuppressWarnings("unchecked")
-    private Map<String, Object> filter(Map<String, Object> map) {
+    private Map<String, Object> filter(Map<String, Object> map, String[] ignoreKeys) {
         for (Entry<String, Object> entry : map.entrySet()) {
             String key = entry.getKey();
+            if (StringUtils.equalsAny(key, ignoreKeys)) {
+                continue;
+            }
+
             Object value = entry.getValue();
 
             if (value instanceof String) {
                 map.put(key, filter((String) value));
             } else if (value instanceof Map) {
-                map.put(key, filter((Map<String, Object>) value));
+                map.put(key, filter((Map<String, Object>) value, ignoreKeys));
             } else if (value instanceof List) {
-                map.put(key, filter((List<Object>) value));
+                map.put(key, filter((List<Object>) value, ignoreKeys));
             }
         }
 
@@ -77,16 +85,16 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
     }
 
     @SuppressWarnings("unchecked")
-    private List<Object> filter(List<Object> list) {
+    private List<Object> filter(List<Object> list, String[] ignoreKeys) {
         for (int i = 0, length = list.size(); i < length; i++) {
             Object value = list.get(i);
 
             if (value instanceof String) {
                 list.set(i, filter((String) value));
             } else if (value instanceof Map) {
-                list.set(i, filter((Map<String, Object>) value));
+                list.set(i, filter((Map<String, Object>) value, ignoreKeys));
             } else if (value instanceof List) {
-                list.set(i, filter((List<Object>) value));
+                list.set(i, filter((List<Object>) value, ignoreKeys));
             }
         }
 
