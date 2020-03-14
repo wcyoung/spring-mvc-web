@@ -1,23 +1,32 @@
 package wcyoung.spring.mvc.security;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import wcyoung.spring.mvc.security.annotation.ApplyXssFilter;
+import wcyoung.spring.mvc.security.annotation.ApplyXssFilterBeans;
 import wcyoung.spring.mvc.security.annotation.IgnoreXssFilter;
 
 @ControllerAdvice
 public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Override
     public
@@ -59,15 +68,23 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
             return filter((List<Object>) body, ignoreKeys);
         }
 
-        return body;
+        return filter(body, ignoreKeys);
     }
 
     private String filter(String value) {
+        if (value == null) {
+            return value;
+        }
+
         return value.replace("<", "&lt;").replace(">", "&gt;");
     }
 
     @SuppressWarnings("unchecked")
     private Map<String, Object> filter(Map<String, Object> map, String[] ignoreKeys) {
+        if (map == null) {
+            return map;
+        }
+
         for (Entry<String, Object> entry : map.entrySet()) {
             String key = entry.getKey();
             if (StringUtils.equalsAny(key, ignoreKeys)) {
@@ -82,6 +99,8 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
                 map.put(key, filter((Map<String, Object>) value, ignoreKeys));
             } else if (value instanceof List) {
                 map.put(key, filter((List<Object>) value, ignoreKeys));
+            } else {
+                map.put(key, filter(value, ignoreKeys));
             }
         }
 
@@ -90,6 +109,10 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
 
     @SuppressWarnings("unchecked")
     private List<Object> filter(List<Object> list, String[] ignoreKeys) {
+        if (list == null) {
+            return list;
+        }
+
         for (int i = 0, length = list.size(); i < length; i++) {
             Object value = list.get(i);
 
@@ -99,10 +122,52 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
                 list.set(i, filter((Map<String, Object>) value, ignoreKeys));
             } else if (value instanceof List) {
                 list.set(i, filter((List<Object>) value, ignoreKeys));
+            } else {
+                list.set(length, filter(value, ignoreKeys));
             }
         }
 
         return list;
+    }
+
+    @SuppressWarnings("unchecked")
+    private Object filter(Object object, String[] ignoreKeys) {
+        if (object == null) {
+            return object;
+        }
+
+        Class<?> clazz = ClassUtils.getUserClass(object);
+        ApplyXssFilterBeans applyXssFilterBeans = clazz.getAnnotation(ApplyXssFilterBeans.class);
+
+        if (applyXssFilterBeans == null) {
+            return object;
+        }
+
+        List<Field> fields = FieldUtils.getAllFieldsList(clazz);
+
+        for (int i = 0, length = fields.size(); i < length; i++) {
+            Field field = fields.get(i);
+
+            try {
+                if (field.getType().equals(String.class)) {
+                    String value = (String) FieldUtils.readField(field, object, true);
+                    FieldUtils.writeField(field, object, filter(value));
+                } else if (field.getType().equals(Map.class)) {
+                    Map<String, Object> value = (Map<String, Object>) FieldUtils.readField(field, object, true);
+                    FieldUtils.writeField(field, object, filter(value, ignoreKeys));
+                } else if (field.getType().equals(List.class)) {
+                    List<Object> value = (List<Object>) FieldUtils.readField(field, object, true);
+                    FieldUtils.writeField(field, object, filter(value, ignoreKeys));
+                } else {
+                    Object value = FieldUtils.readField(field, object, true);
+                    FieldUtils.writeField(field, object, filter(value, ignoreKeys));
+                }
+            } catch (Exception e) {
+                log.error("Exception: {}", ExceptionUtils.getStackTrace(e));
+            }
+        }
+
+        return object;
     }
 
 }
