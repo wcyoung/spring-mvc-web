@@ -86,7 +86,9 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
             return value;
         }
 
-        return value.replace("<", "&lt;").replace(">", "&gt;");
+        value = value.replace("<", "&lt;").replace(">", "&gt;");
+        value = value.replace("'", "&#39;").replace("\"", "&quot;");
+        return value;
     }
 
     @SuppressWarnings("unchecked")
