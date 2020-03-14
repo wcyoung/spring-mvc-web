@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import wcyoung.spring.mvc.security.annotation.ApplyXssFilter;
 import wcyoung.spring.mvc.security.annotation.ApplyXssFilterBeans;
 import wcyoung.spring.mvc.security.annotation.IgnoreXssFilter;
+import wcyoung.spring.mvc.security.annotation.IgnoreXssFilterField;
 
 @ControllerAdvice
 public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
@@ -156,6 +157,9 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
 
         for (int i = 0, length = fields.size(); i < length; i++) {
             Field field = fields.get(i);
+            if (field.getAnnotation(IgnoreXssFilterField.class) != null) {
+                continue;
+            }
 
             try {
                 if (field.getType().equals(String.class)) {
