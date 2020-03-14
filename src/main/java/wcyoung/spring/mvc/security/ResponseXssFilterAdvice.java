@@ -44,8 +44,12 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
             return filter((String) body);
         }
 
+        String[] ignoreKeys = null;
+
         ApplyXssFilter applyXssFilter = returnType.getMethodAnnotation(ApplyXssFilter.class);
-        String[] ignoreKeys = applyXssFilter.ignoreKeys();
+        if (applyXssFilter != null) {
+            ignoreKeys = (applyXssFilter.ignoreKeys() == null) ? new String[] {} : applyXssFilter.ignoreKeys();
+        };
 
         if (body instanceof Map) {
             return filter((Map<String, Object>) body, ignoreKeys);
