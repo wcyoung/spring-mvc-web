@@ -30,8 +30,7 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Override
-    public
-    boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         if (returnType.hasMethodAnnotation(IgnoreXssFilter.class)) {
             return false;
         }
