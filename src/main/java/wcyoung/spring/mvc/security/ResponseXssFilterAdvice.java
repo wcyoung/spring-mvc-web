@@ -49,10 +49,6 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
             MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
             ServerHttpRequest request, ServerHttpResponse response) {
 
-        if (body instanceof String) {
-            return filter((String) body);
-        }
-
         String[] ignoreKeys = null;
 
         ApplyXssFilter applyXssFilter = returnType.getMethodAnnotation(ApplyXssFilter.class);
@@ -60,14 +56,27 @@ public class ResponseXssFilterAdvice implements ResponseBodyAdvice<Object> {
             ignoreKeys = (applyXssFilter.ignoreKeys() == null) ? new String[] {} : applyXssFilter.ignoreKeys();
         };
 
+        if (body instanceof String) {
+            if (log.isWarnEnabled() && ignoreKeys.length > 0) {
+                log.warn("@ApplyXssFilter.ignoreKeys only applies when response body type is Map.");
+            }
+            return filter((String) body);
+        }
+
         if (body instanceof Map) {
             return filter((Map<String, Object>) body, ignoreKeys);
         }
 
         if (body instanceof List) {
+            if (log.isWarnEnabled() && ignoreKeys.length > 0) {
+                log.warn("@ApplyXssFilter.ignoreKeys only applies when response body type is Map.");
+            }
             return filter((List<Object>) body, ignoreKeys);
         }
 
+        if (log.isWarnEnabled() && ignoreKeys.length > 0) {
+            log.warn("@ApplyXssFilter.ignoreKeys only applies when response body type is Map.");
+        }
         return filter(body, ignoreKeys);
     }
 
