@@ -28,6 +28,7 @@
   <logger name="wcyoung.spring.mvc.common.config.ConfigurationProperties" level="INFO"/>
   <logger name="wcyoung.spring.mvc.filter.RequestAndResponseLoggingFilter" level="DEBUG"/>
   <logger name="wcyoung.spring.mvc.mybatis.plugin.MybatisSqlLogInterceptor" level="DEBUG"/>
+  <logger name="wcyoung.spring.mvc.security.ResponseXssFilterAdvice" level="INFO"/>
 
   <root level="${ROOT_LOG_LEVEL}">
     <appender-ref ref="FILE"/>
